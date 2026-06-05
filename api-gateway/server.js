@@ -8,6 +8,20 @@ const PORT = process.env.PORT || 8080;
 
 app.use(cors())
 app.use(morgan('dev'))
+app.use(express.json())  // needed for POST body parsing
+
+// Health check / debug endpoint
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'running',
+        port: PORT,
+        env: {
+            LOGIN_REG_URL: process.env.LOGIN_REG_URL || 'NOT SET (fallback: http://localhost:3000)',
+            INFORMATION_URL: process.env.INFORMATION_URL || 'NOT SET (fallback: http://localhost:3001)',
+            PAYMENT_URL: process.env.PAYMENT_URL || 'NOT SET (fallback: http://localhost:3002)',
+        }
+    });
+});
 
 // Generic proxy function using native fetch
 const proxy = (targetUrl) => {
