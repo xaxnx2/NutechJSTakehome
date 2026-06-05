@@ -43,7 +43,8 @@ app.use('/api/v1/profile', createProxyMiddleware({
 // Information
 app.use('/api/v1/banner', createProxyMiddleware({
     target: process.env.INFORMATION_URL || 'http://localhost:3001',
-    changeOrigin: true
+    changeOrigin: true,
+    pathRewrite: false
 }));
 app.use('/api/v1/services', createProxyMiddleware({
     target: process.env.INFORMATION_URL || 'http://localhost:3001',
