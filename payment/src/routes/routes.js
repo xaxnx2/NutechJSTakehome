@@ -6,9 +6,9 @@ const {validateBalance} = require('../middlewares/validatemiddleware');
 const authMiddleware = require('../middlewares/authmiddleware');
 
 router.get('/balance', authMiddleware, balanceController.getBalance);
-router.get('/topup', validateBalance ,authMiddleware, balanceController.updateBalance)
+router.post('/topup', validateBalance ,authMiddleware, balanceController.updateBalance)
 
 router.get('/transaction/history', authMiddleware, transactionController.getTransaction)
-router.get('/transaction', authMiddleware, transactionController.postTransaction)
+router.post('/transaction', authMiddleware, transactionController.postTransaction)
 
 module.exports = router;

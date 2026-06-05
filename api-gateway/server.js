@@ -74,6 +74,12 @@ app.use('/api/v1/transaction', createProxyMiddleware({
     pathRewrite: (path, req) => req.originalUrl
 }));
 
+app.use('/api/v1/transaction/history', createProxyMiddleware({
+    target: process.env.PAYMENT_URL || 'http://localhost:3002',
+    changeOrigin: true,
+    pathRewrite: (path, req) => req.originalUrl
+}));
+
 app.use('/api/v1/topup', createProxyMiddleware({
     target: process.env.PAYMENT_URL || 'http://localhost:3002',
     changeOrigin: true,
