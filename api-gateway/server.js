@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 8080;
 
 app.use(cors())
 app.use(morgan('dev'))
-app.use(express.json())
 
 // Health check / debug endpoint
 app.get('/health', (req, res) => {
@@ -55,6 +54,7 @@ app.use('/api/v1/banner', createProxyMiddleware({
         }
     }
 }));
+
 app.use('/api/v1/services', createProxyMiddleware({
     target: process.env.INFORMATION_URL || 'http://localhost:3001',
     changeOrigin: true,
