@@ -10,6 +10,14 @@ const PORT = process.env.PORT || 8080;
 app.use(cors())
 app.use(morgan('dev'))
 
+// Debug: log all env vars being used
+console.log('=== GATEWAY ENV VARS ===');
+console.log('LOGIN_REG_URL:', process.env.LOGIN_REG_URL);
+console.log('INFORMATION_URL:', process.env.INFORMATION_URL);
+console.log('PAYMENT_URL:', process.env.PAYMENT_URL);
+console.log('PORT:', process.env.PORT);
+console.log('========================');
+
 //Login Register
 app.use('/api/v1/registration', createProxyMiddleware({
     target: process.env.LOGIN_REG_URL || 'http://localhost:3000',
