@@ -27,41 +27,50 @@ app.get('/health', (req, res) => {
 //Login Register
 app.use('/api/v1/registration', createProxyMiddleware({
     target: process.env.LOGIN_REG_URL || 'http://localhost:3000',
-    changeOrigin: true
+    changeOrigin: true,
+    pathRewrite: (path, req) => req.originalUrl
 }))
 
 app.use('/api/v1/login', createProxyMiddleware({
     target: process.env.LOGIN_REG_URL || 'http://localhost:3000',
-    changeOrigin: true
+    changeOrigin: true,
+    pathRewrite: (path, req) => req.originalUrl
 }))
 
 app.use('/api/v1/profile', createProxyMiddleware({
     target: process.env.LOGIN_REG_URL || 'http://localhost:3000',
-    changeOrigin: true
+    changeOrigin: true,
+    pathRewrite: (path, req) => req.originalUrl
 }))
 
 // Information
 app.use('/api/v1/banner', createProxyMiddleware({
     target: process.env.INFORMATION_URL || 'http://localhost:3001',
     changeOrigin: true,
-    onProxyReq: (proxyReq, req, res) => {
-        // This will log the EXACT address being requested
-        console.log(`[Proxying To]: ${proxyReq.protocol}//${proxyReq.host}${proxyReq.path}`);
+    pathRewrite: (path, req) => req.originalUrl,
+    on: {
+        proxyReq: (proxyReq, req, res) => {
+            // This will log the EXACT address being requested
+            console.log(`[Proxying To]: ${proxyReq.protocol}//${proxyReq.host}${proxyReq.path}`);
+        }
     }
 }));
 app.use('/api/v1/services', createProxyMiddleware({
     target: process.env.INFORMATION_URL || 'http://localhost:3001',
-    changeOrigin: true
+    changeOrigin: true,
+    pathRewrite: (path, req) => req.originalUrl
 }));
 
 //Payment
 app.use('/api/v1/balance', createProxyMiddleware({
     target: process.env.PAYMENT_URL || 'http://localhost:3002',
-    changeOrigin: true
+    changeOrigin: true,
+    pathRewrite: (path, req) => req.originalUrl
 }));
 app.use('/api/v1/transaction', createProxyMiddleware({
     target: process.env.PAYMENT_URL || 'http://localhost:3002',
-    changeOrigin: true
+    changeOrigin: true,
+    pathRewrite: (path, req) => req.originalUrl
 }));
 
 app.listen(PORT, () => {
