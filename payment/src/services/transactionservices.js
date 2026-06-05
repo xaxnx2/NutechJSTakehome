@@ -19,7 +19,8 @@ const transactionServices = {
                 }
             })
             if (!res.ok) {
-                return { error: 'gagal mengfetching data dari services'}
+                const errorText = await res.text();
+                return { error: `gagal mengfetching data dari services. HTTP ${res.status}: ${errorText}` }
             }
 
             const data = await res.json()
