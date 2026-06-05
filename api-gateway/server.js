@@ -11,6 +11,18 @@ app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 
+// Health check / debug endpoint
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'running',
+        port: PORT,
+        env: {
+            LOGIN_REG_URL: process.env.LOGIN_REG_URL || 'NOT SET (fallback: http://localhost:3000)',
+            INFORMATION_URL: process.env.INFORMATION_URL || 'NOT SET (fallback: http://localhost:3001)',
+            PAYMENT_URL: process.env.PAYMENT_URL || 'NOT SET (fallback: http://localhost:3002)',
+        }
+    });
+});
 
 //Login Register
 app.use('/api/v1/registration', createProxyMiddleware({
