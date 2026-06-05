@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment files (NEVER commit these)
+.env
+
+# Railway
+.railway/
+
+# STEP GUIDE
+RAILWAY_DEPLOY.md
